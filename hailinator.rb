@@ -1,4 +1,5 @@
 require "twitter"
+require "csv"
 
 # Follow the quick-start guide to get that going:
 # https://github.com/sferik/twitter#quick-start-guide
@@ -13,6 +14,11 @@ end
 Twitter.home_timeline
 
 # do hashtag search
-Twitter.search("#hail #damage -rt", :count => 3, :result_type => "recent").results.map do |status|
-  "#{status.from_user}: #{status.text}"
+CSV.open("tweets.csv", "wb") do |csv|
+	csv << ['handle','text', "url"]
+	tweets = Twitter.search("#hail #damage").results.map do |status|
+		puts status.methods
+		# puts status.inspect
+		csv << [status.from_user, status.text, ]
+	end
 end
