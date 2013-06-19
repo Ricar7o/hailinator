@@ -1,5 +1,7 @@
 require "twitter"
 
+# Follow the quick-start guide to get that going:
+# https://github.com/sferik/twitter#quick-start-guide
 Twitter.configure do |config|
   config.consumer_key = "o9QwqK8swZ2v5nuWikNfYA"
   config.consumer_secret = "8uws74UiOZrrqab6KeqV4aYbOoknL4TKVoAx3uApk"
@@ -9,3 +11,8 @@ end
 
 # hack to connect to twitter
 Twitter.home_timeline
+
+# do hashtag search
+Twitter.search("#hail #damage -rt", :count => 3, :result_type => "recent").results.map do |status|
+  "#{status.from_user}: #{status.text}"
+end
