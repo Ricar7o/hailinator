@@ -1,5 +1,6 @@
 require "twitter"
 require "csv"
+require "koala"
 
 # Follow the quick-start guide to get that going:
 # https://github.com/sferik/twitter#quick-start-guide
@@ -9,6 +10,14 @@ Twitter.configure do |config|
   config.oauth_token = "1455072764-ZvJZKhySbo1xEjJ0jSyXkvlYk8w84HTA30v7Jtm"
   config.oauth_token_secret = "SNrnJrw0FdvMlSduUfF6QOcGScDdmoeZAq9k2UpsdE"
 end
+
+@graph = Koala::Facebook::API.new("100005957380999")
+puts @graph.inspect
+puts @graph.class
+
+# query = "SELECT name FROM user WHERE uid = me()"
+# puts @graph.fql_query(query)
+
 
 # hack to connect to twitter
 Twitter.home_timeline
@@ -27,3 +36,4 @@ CSV.open("tweets.csv", "wb") do |csv|
 		csv << [status.from_user, status.text, "https://twitter.com/#{status.from_user}/statuses/#{status.id}"]
 	end
 end
+
